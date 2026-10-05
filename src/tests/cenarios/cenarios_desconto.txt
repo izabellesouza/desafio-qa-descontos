@@ -1,0 +1,56 @@
+CENÁRIOS DE TESTE — CÁLCULO DE DESCONTO
+
+Valores abaixo estão em reais. Cada combinação de compra e cliente
+representa um teste separado.
+
+Compra | Desconto COMUM | Desconto VIP
+0      | 0             | 0
+50     | 0             | 2,50
+99,99  | 0             | 5,00
+100    | 10,00         | 15,00
+100,01 | 10,00         | 15,00
+300    | 30,00         | 45,00
+499,99 | 50,00         | 75,00
+500    | 100,00        | 125,00
+500,01 | 100,00        | 125,00
+2000   | 200,00        | 200,00
+
+Variações de maiúsculas e minúsculas:
+Compra de 300 com "vip", "Vip" ou "vIp": desconto de 45,00.
+Compra de 300 com "comum": desconto de 30,00.
+
+Limite de desconto para VIP:
+Compra de 799,96: desconto de 199,99.
+Compra de 800: desconto de 200,00.
+Compra de 800,04: desconto limitado a 200,00.
+
+Limite de desconto para COMUM:
+Compra de 999,95: desconto de 199,99.
+Compra de 1000: desconto de 200,00.
+Compra de 1000,05: desconto limitado a 200,00.
+
+Arredondamento:
+Compra de 123,45 para COMUM: desconto de 12,35.
+
+DADOS INESPERADOS
+
+Como a regra não define o tratamento desses dados, adotei a
+rejeição das entradas inválidas, conforme os cenários abaixo.
+
+Valor da compra com tipo inválido:
+"300", None, True, False, lista vazia ou dicionário vazio.
+Resultado esperado para cada entrada: TypeError.
+
+Valor da compra inválido:
+-1, -100, NaN, infinito positivo ou infinito negativo.
+Resultado esperado para cada entrada: ValueError.
+
+Tipo de cliente com tipo inválido:
+None, 123, True, lista vazia ou dicionário vazio.
+Resultado esperado para cada entrada: TypeError.
+
+Categoria de cliente inválida:
+Texto vazio, apenas espaços ou "PREMIUM".
+Resultado esperado para cada entrada: ValueError.
+
+Total: 31 cenários de cálculo e 19 de entradas inválidas.
